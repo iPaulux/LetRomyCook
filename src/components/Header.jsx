@@ -1,3 +1,5 @@
+import iconRound from '/icon-round.png'
+
 const CATEGORIES = ['Entrée', 'Plat', 'Dessert', 'Snack', 'Petit-déj', 'Autre']
 
 export default function Header({ dishes, filter, onFilter, onSignOut }) {
@@ -9,7 +11,7 @@ export default function Header({ dishes, filter, onFilter, onSignOut }) {
     <header className="app-header">
       <div className="header-top">
         <div className="header-logo">
-          <span className="logo-emoji">👩‍🍳</span>
+          <img src={iconRound} alt="" className="header-logo-img" />
           <div>
             <h1>LetRomyCook</h1>
             <p className="logo-tagline">la cuisine de Romy, notée avec amour</p>
@@ -18,11 +20,11 @@ export default function Header({ dishes, filter, onFilter, onSignOut }) {
         <div className="header-right">
           <div className="header-stats">
             <div className="stat">
-              <span className="stat-value">{dishes.length}</span>
+              <span className="stat-value pink">{dishes.length}</span>
               <span className="stat-label">plat{dishes.length > 1 ? 's' : ''}</span>
             </div>
             <div className="stat">
-              <span className="stat-value">{avg}</span>
+              <span className="stat-value blue">{avg}</span>
               <span className="stat-label">moy. ★</span>
             </div>
           </div>

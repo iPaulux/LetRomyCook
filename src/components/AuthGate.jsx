@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import iconRound from '/icon-round.png'
 
 export default function AuthGate({ signIn, signUp }) {
   const [email, setEmail] = useState('')
@@ -31,7 +32,7 @@ export default function AuthGate({ signIn, signUp }) {
     <div className="auth-screen">
       <div className="auth-card">
         <div className="auth-logo">
-          <span className="logo-emoji">👩‍🍳</span>
+          <img src={iconRound} alt="" className="auth-logo-icon" />
           <h1>LetRomyCook</h1>
           <p>la cuisine de Romy, notée avec amour</p>
         </div>

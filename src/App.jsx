@@ -7,6 +7,7 @@ import Header from './components/Header'
 import DishGrid from './components/DishGrid'
 import DishDetail from './components/DishDetail'
 import AddEditModal from './components/AddEditModal'
+import iconRound from '/icon-round.png'
 import './App.css'
 
 export default function App() {
@@ -24,7 +25,7 @@ export default function App() {
       <div className="auth-screen">
         <div className="auth-card">
           <div className="auth-logo">
-            <span className="logo-emoji">⚙️</span>
+            <span style={{ fontSize: 36 }}>⚙️</span>
             <h1>Configuration manquante</h1>
             <p>Les variables d'environnement Supabase ne sont pas définies.</p>
           </div>
@@ -32,25 +33,24 @@ export default function App() {
             <p>Ajoute ces variables dans Netlify → <strong>Site configuration → Environment variables</strong> :</p>
             <code>VITE_SUPABASE_URL</code>
             <code>VITE_SUPABASE_ANON_KEY</code>
-            <p style={{marginTop: 12}}>Puis relance un déploiement.</p>
+            <p style={{ marginTop: 12 }}>Puis relance un déploiement.</p>
           </div>
         </div>
       </div>
     )
   }
 
-  // Auth still loading
   if (user === undefined) {
     return (
       <div className="splash">
-        <span className="logo-emoji" style={{ fontSize: 48 }}>👩‍🍳</span>
+        <img src={iconRound} alt="LetRomyCook" className="splash-icon" />
+        <p className="splash-title">LetRomyCook</p>
+        <p className="splash-tagline">la cuisine de Romy, notée avec amour</p>
       </div>
     )
   }
 
-  if (!user) {
-    return <AuthGate signIn={signIn} signUp={signUp} />
-  }
+  if (!user) return <AuthGate signIn={signIn} signUp={signUp} />
 
   const openEdit = (dish) => { setSelected(null); setEditing(dish) }
 
@@ -68,12 +68,7 @@ export default function App() {
 
   return (
     <div className="app">
-      <Header
-        dishes={dishes}
-        filter={filter}
-        onFilter={setFilter}
-        onSignOut={signOut}
-      />
+      <Header dishes={dishes} filter={filter} onFilter={setFilter} onSignOut={signOut} />
 
       <main className="main">
         {loading && (
