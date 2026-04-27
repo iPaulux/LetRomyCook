@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { supabaseConfigured } from './lib/supabase'
 import { useAuth } from './hooks/useAuth'
 import { useDishes } from './hooks/useDishes'
 import AuthGate from './components/AuthGate'
@@ -17,6 +18,26 @@ export default function App() {
   const [adding, setAdding] = useState(false)
   const [filter, setFilter] = useState(null)
   const [saving, setSaving] = useState(false)
+
+  if (!supabaseConfigured) {
+    return (
+      <div className="auth-screen">
+        <div className="auth-card">
+          <div className="auth-logo">
+            <span className="logo-emoji">⚙️</span>
+            <h1>Configuration manquante</h1>
+            <p>Les variables d'environnement Supabase ne sont pas définies.</p>
+          </div>
+          <div className="config-help">
+            <p>Ajoute ces variables dans Netlify → <strong>Site configuration → Environment variables</strong> :</p>
+            <code>VITE_SUPABASE_URL</code>
+            <code>VITE_SUPABASE_ANON_KEY</code>
+            <p style={{marginTop: 12}}>Puis relance un déploiement.</p>
+          </div>
+        </div>
+      </div>
+    )
+  }
 
   // Auth still loading
   if (user === undefined) {

@@ -1,18 +1,33 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --bg: #0e0c0a;
-  --surface: #1a1713;
-  --surface-2: #24201b;
-  --border: #2e2923;
-  --accent: #e8924a;
-  --accent-dim: rgba(232, 146, 74, 0.15);
-  --text: #f0e8dc;
-  --text-muted: #7a6e60;
-  --star: #f5a623;
-  --danger: #c0392b;
-  --radius: 12px;
-  --radius-sm: 8px;
+  /* ── Palette tirée de l'icône ── */
+  --bg:          #110d10;   /* brun-violet très sombre */
+  --surface:     #1d1520;   /* aubergine profond */
+  --surface-2:   #271b2a;   /* légèrement plus clair */
+  --border:      #3d2840;   /* mauve-brun */
+
+  --pink:        #c9587e;   /* rose poudré — accent principal */
+  --pink-dim:    rgba(201, 88, 126, 0.15);
+  --pink-light:  #e88fac;   /* rose clair pour hover */
+
+  --blue:        #6b8fd4;   /* bleu ardoise — accent secondaire */
+  --blue-dim:    rgba(107, 143, 212, 0.15);
+
+  --brown:       #9b6b5e;   /* brun chaud */
+
+  --text:        #f5edf8;   /* blanc rosé */
+  --text-muted:  #9b7ea6;   /* lavande atténué */
+
+  --star:        #c9587e;   /* étoiles roses */
+  --danger:      #c04060;
+
+  /* alias pour compatibilité */
+  --accent:      var(--pink);
+  --accent-dim:  var(--pink-dim);
+
+  --radius:    12px;
+  --radius-sm:  8px;
 }
 
 html { font-size: 16px; }
