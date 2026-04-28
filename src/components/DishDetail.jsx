@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import StarRating from './StarRating'
+import { ScoreBadge } from './ScoreInput'
 
 const CATEGORY_EMOJI = {
   'Entrée': '🥗',
@@ -10,7 +10,7 @@ const CATEGORY_EMOJI = {
   'Autre': '✨',
 }
 
-export default function DishDetail({ dish, onClose, onEdit, onDelete }) {
+export default function DishDetail({ dish, onClose, onEdit, onDelete, isOwner }) {
   useEffect(() => {
     const handler = (e) => e.key === 'Escape' && onClose()
     window.addEventListener('keydown', handler)
@@ -34,20 +34,26 @@ export default function DishDetail({ dish, onClose, onEdit, onDelete }) {
         </div>
 
         <div className="detail-content">
-          <div className="detail-category">{dish.category}</div>
+          <div className="detail-category-row">
+            <span className="detail-category">{dish.category}</span>
+            {dish.author_name && (
+              <span className="detail-author">par {dish.author_name}</span>
+            )}
+          </div>
           <h2 className="detail-name">{dish.name}</h2>
           <div className="detail-rating">
-            <StarRating value={dish.rating} readonly size={22} />
-            <span className="detail-rating-label">{dish.rating}/5</span>
+            <ScoreBadge value={dish.rating} size="xl" />
           </div>
           <p className="detail-date">{date}</p>
           {dish.description && (
             <p className="detail-description">{dish.description}</p>
           )}
-          <div className="detail-actions">
-            <button className="btn btn-secondary" onClick={onEdit}>Modifier</button>
-            <button className="btn btn-danger" onClick={() => { onDelete(dish.id); onClose() }}>Supprimer</button>
-          </div>
+          {isOwner && (
+            <div className="detail-actions">
+              <button className="btn btn-secondary" onClick={onEdit}>Modifier</button>
+              <button className="btn btn-danger" onClick={() => { onDelete(dish.id); onClose() }}>Supprimer</button>
+            </div>
+          )}
         </div>
       </div>
     </div>

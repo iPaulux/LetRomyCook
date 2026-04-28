@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
-import StarRating from './StarRating'
+import ScoreInput from './ScoreInput'
 
 const CATEGORIES = ['Entrée', 'Plat', 'Dessert', 'Snack', 'Petit-déj', 'Autre']
 
@@ -27,7 +27,7 @@ async function compressImage(file) {
   })
 }
 
-const EMPTY = { name: '', description: '', category: 'Plat', rating: 0, photo: null }
+const EMPTY = { name: '', description: '', category: 'Plat', rating: null, photo: null }
 
 export default function AddEditModal({ dish, onSave, onClose, saving }) {
   const [form, setForm] = useState(dish ? { ...dish } : { ...EMPTY })
@@ -58,9 +58,8 @@ export default function AddEditModal({ dish, onSave, onClose, saving }) {
   const handleSubmit = (e) => {
     e.preventDefault()
     if (!form.name.trim()) { setError('Le nom du plat est requis.'); return }
-    if (!form.rating) { setError('Donne une note au plat !'); return }
+    if (form.rating === null) { setError('Donne une note au plat !'); return }
     onSave(form)
-    onClose()
   }
 
   return (
@@ -116,16 +115,17 @@ export default function AddEditModal({ dish, onSave, onClose, saving }) {
                   type="button"
                   className={`pill ${form.category === c ? 'active' : ''}`}
                   onClick={() => set('category', c)}
-                >
-                  {c}
-                </button>
+                >{c}</button>
               ))}
             </div>
           </div>
 
           <div className="form-row">
-            <label>Note *</label>
-            <StarRating value={form.rating} onChange={v => set('rating', v)} size={30} />
+            <label>Note * <span style={{ fontWeight: 400, textTransform: 'none', letterSpacing: 0, color: 'var(--text-muted)' }}>sur 20</span></label>
+            <ScoreInput
+              value={form.rating}
+              onChange={v => set('rating', v)}
+            />
           </div>
 
           <div className="form-row">

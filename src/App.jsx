@@ -12,13 +12,17 @@ import './App.css'
 
 export default function App() {
   const { user, signIn, signUp, signOut } = useAuth()
-  const { dishes, loading, error, addDish, updateDish, deleteDish } = useDishes(user)
 
+  const [tab, setTab]         = useState('mine')
+  const [filter, setFilter]   = useState(null)
   const [selected, setSelected] = useState(null)
-  const [editing, setEditing] = useState(null)
-  const [adding, setAdding] = useState(false)
-  const [filter, setFilter] = useState(null)
-  const [saving, setSaving] = useState(false)
+  const [editing, setEditing]   = useState(null)
+  const [adding, setAdding]     = useState(false)
+  const [saving, setSaving]     = useState(false)
+
+  const { dishes, loading, error, addDish, updateDish, deleteDish } = useDishes(user, tab)
+
+  const handleTabChange = (t) => { setTab(t); setFilter(null) }
 
   if (!supabaseConfigured) {
     return (
@@ -66,9 +70,18 @@ export default function App() {
     }
   }
 
+  const isOwner = (dish) => dish.user_id === user.id
+
   return (
     <div className="app">
-      <Header dishes={dishes} filter={filter} onFilter={setFilter} onSignOut={signOut} />
+      <Header
+        dishes={dishes}
+        filter={filter}
+        onFilter={setFilter}
+        onSignOut={signOut}
+        tab={tab}
+        onTabChange={handleTabChange}
+      />
 
       <main className="main">
         {loading && (
@@ -79,11 +92,18 @@ export default function App() {
         )}
         {error && <p className="form-error" style={{ margin: 24 }}>{error}</p>}
         {!loading && (
-          <DishGrid dishes={dishes} onSelectDish={setSelected} filter={filter} />
+          <DishGrid
+            dishes={dishes}
+            onSelectDish={setSelected}
+            filter={filter}
+            showAuthor={tab === 'all'}
+          />
         )}
       </main>
 
-      <button className="fab" onClick={() => setAdding(true)} aria-label="Ajouter un plat">+</button>
+      {tab === 'mine' && (
+        <button className="fab" onClick={() => setAdding(true)} aria-label="Ajouter un plat">+</button>
+      )}
 
       {selected && (
         <DishDetail
@@ -91,6 +111,7 @@ export default function App() {
           onClose={() => setSelected(null)}
           onEdit={() => openEdit(selected)}
           onDelete={deleteDish}
+          isOwner={isOwner(selected)}
         />
       )}
 

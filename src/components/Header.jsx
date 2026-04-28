@@ -2,7 +2,7 @@ import iconRound from '/icon-round.png'
 
 const CATEGORIES = ['Entrée', 'Plat', 'Dessert', 'Snack', 'Petit-déj', 'Autre']
 
-export default function Header({ dishes, filter, onFilter, onSignOut }) {
+export default function Header({ dishes, filter, onFilter, onSignOut, tab, onTabChange }) {
   const avg = dishes.length
     ? (dishes.reduce((s, d) => s + d.rating, 0) / dishes.length).toFixed(1)
     : '–'
@@ -25,12 +25,30 @@ export default function Header({ dishes, filter, onFilter, onSignOut }) {
             </div>
             <div className="stat">
               <span className="stat-value blue">{avg}</span>
-              <span className="stat-label">moy. ★</span>
+              <span className="stat-label">moy./20</span>
             </div>
           </div>
           <button className="signout-btn" onClick={onSignOut} title="Se déconnecter">⎋</button>
         </div>
       </div>
+
+      {/* Tab bar */}
+      <nav className="tab-bar">
+        <button
+          className={`tab-btn ${tab === 'mine' ? 'active' : ''}`}
+          onClick={() => onTabChange('mine')}
+        >
+          Mes plats
+        </button>
+        <button
+          className={`tab-btn ${tab === 'all' ? 'active' : ''}`}
+          onClick={() => onTabChange('all')}
+        >
+          Tous les plats
+        </button>
+      </nav>
+
+      {/* Category filters */}
       <nav className="filter-bar">
         <button className={`pill ${!filter ? 'active' : ''}`} onClick={() => onFilter(null)}>
           Tout

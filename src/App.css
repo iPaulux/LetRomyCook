@@ -279,6 +279,34 @@
   color: var(--pink);
 }
 
+/* ── Tab bar ─────────────────────────────────────── */
+.tab-bar {
+  display: flex;
+  gap: 0;
+  margin-bottom: 0;
+}
+
+.tab-btn {
+  flex: 1;
+  padding: 10px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-muted);
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s;
+  letter-spacing: 0.2px;
+}
+
+.tab-btn:hover { color: var(--text); }
+
+.tab-btn.active {
+  color: var(--pink);
+  border-bottom-color: var(--pink);
+}
+
 /* ── Filter bar ─────────────────────────────────── */
 .filter-bar {
   display: flex;
@@ -319,7 +347,147 @@
   opacity: 0.65;
 }
 
-/* ── Stars ──────────────────────────────────────── */
+/* ── Score badge ─────────────────────────────────── */
+.score-badge {
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.3px;
+}
+
+.score-badge--sm  { font-size: 12px; }
+.score-badge--md  { font-size: 14px; }
+.score-badge--lg  { font-size: 15px; }
+.score-badge--xl  { font-size: 28px; }
+
+/* ── Score input ─────────────────────────────────── */
+.score-input {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  padding: 10px 0 4px;
+}
+
+.score-display {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+  font-weight: 700;
+  transition: color 0.2s;
+}
+
+.score-number {
+  font-size: 52px;
+  line-height: 1;
+  letter-spacing: -2px;
+}
+
+.score-denom {
+  font-size: 20px;
+  opacity: 0.6;
+}
+
+.score-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+}
+
+.score-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-size: 20px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all 0.15s;
+}
+
+.score-btn:hover:not(:disabled) {
+  border-color: var(--pink);
+  color: var(--pink);
+}
+
+.score-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+
+.score-slider {
+  flex: 1;
+  -webkit-appearance: none;
+  height: 4px;
+  border-radius: 2px;
+  background: linear-gradient(
+    to right,
+    var(--clr, var(--pink)) 0%,
+    var(--clr, var(--pink)) var(--pct, 0%),
+    var(--border) var(--pct, 0%),
+    var(--border) 100%
+  );
+  outline: none;
+  cursor: pointer;
+}
+
+.score-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--clr, var(--pink));
+  box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+  cursor: pointer;
+  transition: transform 0.1s;
+}
+
+.score-slider::-webkit-slider-thumb:hover { transform: scale(1.2); }
+
+.score-slider::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--clr, var(--pink));
+  border: none;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+  cursor: pointer;
+}
+
+/* Score overlay on card photo */
+.dish-card-score-overlay {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  background: rgba(17,13,16,0.8);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 8px;
+  padding: 3px 8px;
+}
+
+/* Author tag */
+.dish-card-author {
+  font-size: 11px;
+  color: var(--blue);
+  font-weight: 600;
+}
+
+.detail-category-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+
+.detail-author {
+  font-size: 12px;
+  color: var(--blue);
+  font-weight: 600;
+}
+
 .stars { display: flex; gap: 2px; }
 
 .star {

@@ -1,10 +1,8 @@
 import DishCard from './DishCard'
 import iconRound from '/icon-round.png'
 
-export default function DishGrid({ dishes, onSelectDish, filter }) {
-  const filtered = filter
-    ? dishes.filter(d => d.category === filter)
-    : dishes
+export default function DishGrid({ dishes, onSelectDish, filter, showAuthor }) {
+  const filtered = filter ? dishes.filter(d => d.category === filter) : dishes
 
   if (filtered.length === 0) {
     return (
@@ -19,7 +17,12 @@ export default function DishGrid({ dishes, onSelectDish, filter }) {
   return (
     <div className="dish-grid">
       {filtered.map(dish => (
-        <DishCard key={dish.id} dish={dish} onClick={() => onSelectDish(dish)} />
+        <DishCard
+          key={dish.id}
+          dish={dish}
+          onClick={() => onSelectDish(dish)}
+          showAuthor={showAuthor}
+        />
       ))}
     </div>
   )
